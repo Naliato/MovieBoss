@@ -21,6 +21,6 @@ Route::resource('generos', 'GeneroController');
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return view('home');
-});
+Route::resource('playlists', "PlaylistController");
+Route::resource('add', "FilmePlaylistController");
+

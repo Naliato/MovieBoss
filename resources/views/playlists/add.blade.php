@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>MovieBoss - Home</title>
+        <title>MovieBoss - Adicionar filmes a playlist</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>   
@@ -12,13 +12,13 @@
 <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper light-blue lighten-1">
-        <a href="#" class="brand-logo center"><i class="large material-icons">videocam</i>MovieBoss</a>
+        <a href="/" class="brand-logo center"><i class="large material-icons">videocam</i>MovieBoss</a>
         <ul class="right hide-on-med-and-down">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="filmes">Filmes</a></li>
-          <li><a href="generos">Gêneros</a></li>
-          <li><a href="playlists">Playlists</a></li></ul>
-          <ul class="left hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+          <li><a href="/filmes">Filmes</a></li>
+          <li><a href="/generos">Gêneros</a></li>
+          <li class="active"><a href="#">Playlists</a></li></ul>
+         <ul class="left hide-on-med-and-down">
           @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Registre-se</a></li>
@@ -43,43 +43,52 @@
                             </li>
                         @endif
         </ul>
-    </ul>
-  </div>
+        </ul>
       </div>
     </nav>
   </div>
-  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-  <div class="container">
-  <div class="row">
-  <div class="col s12">
-    <ul class="collapsible popout" data-collapsible="accordion">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">code</i>Sobre o projeto</div>
-      <div class="collapsible-body"><span>Sistema de controle de filmes e listas com o objetivo de melhorar nossas habilidades no framework laravel.</span></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">done</i>Atividades Realizadas</div>
-      <div class="collapsible-body"><span>Cadastrar filmes, gêneros, usúarios e listas.<br />Editar filmes, gêneros. <br />O sistema de notas ficou incompleto e a visualização das listas está com problema, mas o relacionamento é feito na tabela pivot normalmente.</span></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">perm_identity</i>Alunos</div>
-      <div class="collapsible-body"><span>Ana Laura dos Santos<br /> Fabricio Moraes <br />Lucas Naliato</span></div>
-    </li>
-  </ul>
-  </div>
-  </div></div></div>
-<script>
-  $(".button-collapse").sideNav();
-</script>
-   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <div class="container">
+        <div class="row">
+<br /><br />
+            <h3 class="center">Associar filmes com uma playlist</h3>
+
+                <form action="{{ route('add.store') }}" method="post" class="col s12">
+                    {{csrf_field()}}
+<div class="row">
+<div class="input-field col s12">
+    <select name="filme_id" id="filme_id" class="form-control">
+      <option value="" disabled selected>Escolha o filme</option>
+      @foreach($filmes as $filme)
+                              <option value="{{$filme->id}}">{{$filme->titulo}}</option>
+                            @endforeach
+    </select>
+</div></div>
+    <div class="row">
+<div class="input-field col s12">
+    <select name="playlist_id" id="playlist_id" class="form-control">
+      <option value="" disabled selected>Escolha a playlist</option>
+      @foreach($playlists as $playlist)
+                              <option value="{{$playlist->id}}">{{$playlist->nome}}</option>
+                            @endforeach
+    </select>
+  </div></div>
+<br /> <br />
+<div class="center">
+                      <button class="btn waves-effect cyan lighten-2" type="submit" name="action">Associar</button>
+</div>
+                </form>
+        </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-   <script> 
+    <script>
+      $(document).ready(function(){
+      $('select').material_select();
+      });
+    </script>
+    <script> 
    $(".dropdown-button").dropdown(); 
-   </script>
-   <script>
-   $(document).ready(function(){
-    $('.collapsible').collapsible();
-  });
-  </script> 
+   </script> 
     </body>
-</html>
+    </html> 

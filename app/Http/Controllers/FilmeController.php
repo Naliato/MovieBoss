@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Playlist;
 use App\Filme;
 use App\Genero;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class FilmeController extends Controller
      */
     public function index()
     {
+        $filmes = Filme::with('playlists')->get();
         $filmes = Filme::with('genero')->get(); 
         return view('filmes.index', compact('filmes'));
     }
